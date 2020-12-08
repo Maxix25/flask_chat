@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SocketIo y python</title>
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+</head>
+<body>
+	<h1>Python & socketio</h1>
+	<div class="container" id="messages">
+	</div>
+	<input type="text" id="message" class="type_msg" placeholder="Message">
+	<button type="button" id="send">Send</button>
+	
+	<script>
+		// Init socket
+		const socket = io();
+		// Call the function when the event happens and display the message
+		socket.on("message", function (msg) {
+			$("#messages").append("<p>"+ msg +"</p>")
+		})
+		$("#send").on("click", function () {
+			socket.send($("#message").val());
+			$("#message").val("");		
+		})
+		
+	</script>
+</body>
+</html>
